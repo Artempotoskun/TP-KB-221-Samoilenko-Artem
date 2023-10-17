@@ -5,12 +5,13 @@ list = [
     {"name": "Zak", "phone": "0631234567", "age": 19, "email": "zak@gmail.com"}
 ]
 
+
 def printAllList():
     sorted_students = sorted(list, key=lambda x: x["name"])  
     for student in sorted_students:
         strForPrint = f"Student name is {student['name']}, Age is {student['age']}, Phone is {student['phone']}, Email is {student['email']}"
         print(strForPrint)
-
+        
 def addNewElement():
     name = input("Please enter student name: ")
     age = int(input("Please enter student age: "))
@@ -37,21 +38,28 @@ def deleteElement():
 
 def updateElement():
     name = input("Please enter name to be updated: ")
-    for student in list:
+    for index, student in enumerate(list):
         if name == student["name"]:
-            new_name = input("Please enter the new name: ")
-            new_age = int(input("Please enter the new age: "))
-            new_phone = input("Please enter the new phone: ")
-            new_email = input("Please enter the new email: ")
-            student["name"] = new_name
-            student["age"] = new_age
-            student["phone"] = new_phone
-            student["email"] = new_email
-            list.sort(key=lambda x: x["name"])  
-            print("Student information updated")
+            new_name = input("Enter new name: ")
+            new_age = input("Enter new age: ")
+            new_phone = input("Enter new phone: ")
+            new_email = input("Enter new email: ")
+            newElement = {"name": new_name, "age": new_age, "phone": new_phone, "email": new_email}
+
+            
+            del list[index]
+            insertPos = 0
+            for pos, elem in enumerate(list):
+                if new_name > elem["name"]:
+                    insertPos = pos + 1
+                else:
+                    break
+            list.insert(insertPos, newElement)
+            print("Element has been updated")
             break
     else:
         print("Student not found")
+
 
 def main():
     while True:

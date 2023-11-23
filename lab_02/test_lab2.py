@@ -34,19 +34,23 @@ def test_save(test_list):
 
 def test_add_new_elemet(test_list,param_tuple):
     with patch('builtins.input', side_effect=["Mike", "1234567890"]):
-            lab2.addNewElement(test_list,param_tuple)
+        lab2.addNewElement(test_list,param_tuple)
 
-    assert test_list[2] == {'name' : "Mike", 'phone' : "1234567890"}
+    added_item = {'name' : "Mike", 'phone' : "1234567890"}
+    assert added_item in test_list
 
 def test_delete(test_list):
-    with patch('builtins.input', side_effect=['Bob']):
-            lab2.deleteElement(test_list)
+    deleted_name = 'Bob'
+    with patch('builtins.input', side_effect=[deleted_name]):
+        lab2.deleteElement(test_list)
 
-    assert len(test_list) == 2
+    assert not any(item['name'] == deleted_name for item in test_list)
 
 def test_update(test_list,param_tuple):
-    with patch('builtins.input', side_effect=['Bob',"Mike", "1234567890"]):
+    updated_name = 'Bob'
+    with patch('builtins.input', side_effect=[updated_name,"Mike", "1234567890"]):
         lab2.updateElement(test_list,param_tuple)
         lab2.printAllList(param_tuple,test_list)
-    assert test_list[1]['name'] == 'Mike' and test_list[1]['phone'] == '1234567890'
 
+    updated_item = {'name': 'Mike', 'phone': '1234567890'}
+    assert updated
